@@ -1,4 +1,4 @@
-package com.aerofs.reactnativeautoupdater;
+package com.mg.appupdate;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,21 +7,19 @@ import android.os.AsyncTask;
 import android.os.PowerManager;
 import android.widget.Toast;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * @author rahul
@@ -43,7 +41,7 @@ public class ReactNativeAppUpdate {
         MAJOR, MINOR, PATCH
     }
 
-    private static ReactNativeAutoUpdater ourInstance = new ReactNativeAutoUpdater();
+    private static ReactNativeAppUpdate ourInstance = new ReactNativeAppUpdate();
     private String updateMetadataUrl;
     private String metadataAssetName;
     private ReactNativeAutoUpdaterFrequency updateFrequency = ReactNativeAutoUpdaterFrequency.EACH_TIME;
@@ -53,45 +51,45 @@ public class ReactNativeAppUpdate {
     private String hostname;
     private Interface activity;
 
-    public static ReactNativeAutoUpdater getInstance(Context context) {
+    public static ReactNativeAppUpdate getInstance(Context context) {
         ourInstance.context = context;
         return ourInstance;
     }
 
-    private ReactNativeAutoUpdater() {
+    private ReactNativeAppUpdate() {
     }
 
-    public ReactNativeAutoUpdater setUpdateMetadataUrl(String url) {
+    public ReactNativeAppUpdate setUpdateMetadataUrl(String url) {
         this.updateMetadataUrl = url;
         return this;
     }
 
-    public ReactNativeAutoUpdater setMetadataAssetName(String metadataAssetName) {
+    public ReactNativeAppUpdate setMetadataAssetName(String metadataAssetName) {
         this.metadataAssetName = metadataAssetName;
         return this;
     }
 
-    public ReactNativeAutoUpdater setUpdateFrequency(ReactNativeAutoUpdaterFrequency frequency) {
+    public ReactNativeAppUpdate setUpdateFrequency(ReactNativeAutoUpdaterFrequency frequency) {
         this.updateFrequency = frequency;
         return this;
     }
 
-    public ReactNativeAutoUpdater setUpdateTypesToDownload(ReactNativeAutoUpdaterUpdateType updateType) {
+    public ReactNativeAppUpdate setUpdateTypesToDownload(ReactNativeAutoUpdaterUpdateType updateType) {
         this.updateType = updateType;
         return this;
     }
 
-    public ReactNativeAutoUpdater setHostnameForRelativeDownloadURLs(String hostnameForRelativeDownloadURLs) {
+    public ReactNativeAppUpdate setHostnameForRelativeDownloadURLs(String hostnameForRelativeDownloadURLs) {
         this.hostname = hostnameForRelativeDownloadURLs;
         return this;
     }
 
-    public ReactNativeAutoUpdater showProgress(boolean progress) {
+    public ReactNativeAppUpdate showProgress(boolean progress) {
         this.showProgress = progress;
         return this;
     }
 
-    public ReactNativeAutoUpdater setParentActivity(Interface activity) {
+    public ReactNativeAppUpdate setParentActivity(Interface activity) {
         this.activity = activity;
         return this;
     }
@@ -289,7 +287,7 @@ public class ReactNativeAppUpdate {
                 if (!metadataStr.isEmpty()) {
                     metadata = new JSONObject(metadataStr);
                 } else {
-                    ReactNativeAutoUpdater.this.showProgressToast(R.string.auto_updater_no_metadata);
+                    ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_no_metadata);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -300,9 +298,9 @@ public class ReactNativeAppUpdate {
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             if (jsonObject == null) {
-                ReactNativeAutoUpdater.this.showProgressToast(R.string.auto_updater_invalid_metadata);
+                ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_invalid_metadata);
             } else {
-                ReactNativeAutoUpdater.this.verifyMetadata(jsonObject);
+                ReactNativeAppUpdate.this.verifyMetadata(jsonObject);
             }
         }
     }
@@ -383,10 +381,10 @@ public class ReactNativeAppUpdate {
         protected void onPostExecute(String result) {
             mWakeLock.release();
             if (result != null) {
-                ReactNativeAutoUpdater.this.showProgressToast(R.string.auto_updater_downloading_error);
+                ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_downloading_error);
             } else {
-                ReactNativeAutoUpdater.this.updateDownloaded();
-                ReactNativeAutoUpdater.this.showProgressToast(R.string.auto_updater_downloading_success);
+                ReactNativeAppUpdate.this.updateDownloaded();
+                ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_downloading_success);
             }
         }
     }

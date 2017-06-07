@@ -1,4 +1,4 @@
-package com.aerofs.reactnativeautoupdater;
+package com.mg.appupdate;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,28 +14,28 @@ import javax.annotation.Nullable;
 /**
  * @author rahul
  */
-public class ReactNativeAutoUpdaterModule extends ReactContextBaseJavaModule {
+public class ReactNativeAppUpdateModule extends ReactContextBaseJavaModule {
 
     private ReactApplicationContext context;
 
-    public ReactNativeAutoUpdaterModule(ReactApplicationContext context) {
+    public ReactNativeAppUpdateModule(ReactApplicationContext context) {
         super(context);
         this.context = context;
     }
 
     @Override
     public String getName() {
-        return "ReactNativeAutoUpdater";
+        return "ReactNativeCustomizedUpdate";
     }
 
     @Nullable
     @Override
     public Map<String, Object> getConstants() {
-        Map<String, Object> constants = new HashMap<String, Object>();
+        Map<String, Object> constants = new HashMap<>();
         SharedPreferences prefs = this.context.getSharedPreferences(
-                ReactNativeAutoUpdater.RNAU_SHARED_PREFERENCES, Context.MODE_PRIVATE
+                ReactNativeAppUpdate.RNAU_SHARED_PREFERENCES, Context.MODE_PRIVATE
         );
-        String version =  prefs.getString(ReactNativeAutoUpdater.RNAU_STORED_VERSION, null);
+        String version =  prefs.getString(ReactNativeAppUpdate.RNAU_STORED_VERSION, null);
         constants.put("jsCodeVersion", version);
         return constants;
     }

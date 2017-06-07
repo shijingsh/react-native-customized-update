@@ -1,4 +1,4 @@
-package com.aerofs.reactnativeautoupdater;
+package com.mg.appupdate;
 
 import android.support.annotation.NonNull;
 

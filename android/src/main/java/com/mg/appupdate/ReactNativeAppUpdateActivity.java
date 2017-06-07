@@ -1,27 +1,26 @@
-package com.aerofs.reactnativeautoupdater;
+package com.mg.appupdate;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.aerofs.reactnativeautoupdater.ReactNativeAutoUpdater.ReactNativeAutoUpdaterUpdateType;
-import com.aerofs.reactnativeautoupdater.ReactNativeAutoUpdater.ReactNativeAutoUpdaterFrequency;
 import com.facebook.react.ReactActivity;
-
+import com.mg.appupdate.ReactNativeAppUpdate.ReactNativeAutoUpdaterFrequency;
+import com.mg.appupdate.ReactNativeAppUpdate.ReactNativeAutoUpdaterUpdateType;
 import javax.annotation.Nullable;
 
 /**
  * @author rahul
  */
-public abstract class ReactNativeAutoUpdaterActivity extends ReactActivity
-        implements ReactNativeAutoUpdater.Interface {
+public abstract class ReactNativeAppUpdateActivity extends ReactActivity
+        implements ReactNativeAppUpdate.Interface {
 
-    private ReactNativeAutoUpdater updater;
+    private ReactNativeAppUpdate updater;
 
     @Nullable
     @Override
     protected String getJSBundleFile() {
-        updater = ReactNativeAutoUpdater.getInstance(this.getApplicationContext());
+        updater = ReactNativeAppUpdate.getInstance(this.getApplicationContext());
         updater.setMetadataAssetName(this.getMetadataAssetName());
         return updater.getLatestJSCodeLocation();
     }
@@ -30,7 +29,7 @@ public abstract class ReactNativeAutoUpdaterActivity extends ReactActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        updater = ReactNativeAutoUpdater.getInstance(this.getApplicationContext());
+        updater = ReactNativeAppUpdate.getInstance(this.getApplicationContext());
         updater.setUpdateMetadataUrl(this.getUpdateMetadataUrl())
                 .setMetadataAssetName(this.getMetadataAssetName())
                 .setUpdateFrequency(this.getUpdateFrequency())
@@ -72,7 +71,7 @@ public abstract class ReactNativeAutoUpdaterActivity extends ReactActivity
                             R.string.auto_updater_downloaded_now,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    ReactNativeAutoUpdaterActivity.this.recreate();
+                                    ReactNativeAppUpdateActivity.this.recreate();
                                 }
                             }
                     )
