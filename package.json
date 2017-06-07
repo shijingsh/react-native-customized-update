@@ -1,0 +1,45 @@
+{
+  "name": "react-native-update",
+  "version": "0.0.1",
+  "description": "A library to manage dynamic updates to React Native apps. Available as an NPM Package.",
+  "main": "index.js",
+  "author": "Rahul Jiresal <rahul@aerofs.com>,liukefu <liukefu2050@sina.com>",
+  "files": [
+    "ios/ReactNativeAutoUpdater.xcodeproj",
+    "react-native-auto-updater.js",
+    "README.md",
+    "ios/ReactNativeAutoUpdater/ReactNativeAutoUpdater.h",
+    "ios/ReactNativeAutoUpdater/ReactNativeAutoUpdater.m",
+    "ios/ReactNativeAutoUpdater/StatusBarNotification.h",
+    "ios/ReactNativeAutoUpdater/StatusBarNotification.m",
+    "android/build.gradle",
+    "android/src/main/AndroidManifest.xml",
+    "android/src/main/res/values/strings.xml",
+    "android/src/main/res/values-es/strings.xml",
+    "android/src/main/java/com/aerofs/reactnativeautoupdater/ReactNativeAutoUpdater.java",
+    "android/src/main/java/com/aerofs/reactnativeautoupdater/ReactNativeAutoUpdaterActivity.java",
+    "android/src/main/java/com/aerofs/reactnativeautoupdater/ReactNativeAutoUpdaterPackage.java",
+    "android/src/main/java/com/aerofs/reactnativeautoupdater/ReactNativeAutoUpdaterModule.java",
+    "android/src/main/java/com/aerofs/reactnativeautoupdater/Version.java"
+  ],
+  "peerDependencies": {
+    "react-native": ">=0.33.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liukefu2050/react-native-app-update"
+  },
+  "bugs": {
+    "url": "https://github.com/liukefu2050/react-native-app-update/issues"
+  },
+  "homepage": "https://github.com/liukefu2050/react-native-app-update#readme",
+  "devDependencies": {
+    "react-native": ">=0.18.0"
+    },
+  "license": "MIT",
+  "keywords": [
+    "react-native",
+    "update",
+    "updates"
+  ]
+}
