@@ -1,25 +1,22 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
+ * @flow
  */
-'use strict';
-import React, {Component} from 'react';
 
+import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View
 } from 'react-native';
-
 import ReactNativeCustomizedUpdate from 'react-native-customized-update'
 
-class RNAU_Example extends Component {
+export default class exampleAppUpdate extends Component {
   componentDidMount() {
-
       ReactNativeCustomizedUpdate.shouldApkUpdate()
   }
-
   render() {
     return (
       <View style={styles.container}>
@@ -30,9 +27,8 @@ class RNAU_Example extends Component {
           To get started, edit index.android.js
         </Text>
         <Text style={styles.instructions}>
-          For more info, check ReactNativeCustomizedUpdate.
-          to call method:
-          ReactNativeCustomizedUpdate.shouldApkUpdate() or ReactNativeCustomizedUpdate.shouldJsUpdate()
+          Double tap R on your keyboard to reload,{'\n'}
+          Shake or press menu button for dev menu
         </Text>
       </View>
     );
@@ -58,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('ReactNativeAutoUpdater', () => RNAU_Example);
+AppRegistry.registerComponent('exampleAppUpdate', () => exampleAppUpdate);

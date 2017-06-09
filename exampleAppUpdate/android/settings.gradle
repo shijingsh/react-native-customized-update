@@ -1,4 +1,6 @@
-rootProject.name = 'RNAUExample'
+rootProject.name = 'exampleAppUpdate'
+
+include ':app'
 
 include ':app'
 include ':react-native-customized-update', ':app'
