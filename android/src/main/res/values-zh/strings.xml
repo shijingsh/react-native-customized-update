@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auto_updater_downloaded_title">下载更新</string>
+    <string name="auto_updater_downloaded_message">已经有了新版，现在更新吗?</string>
+    <string name="auto_updater_downloaded_now">现在下载</string>
+    <string name="auto_updater_downloaded_later">稍后</string>
+
+    <string name="auto_updater_checking">检查更新...</string>
+    <string name="auto_updater_downloading">下载中...</string>
+    <string name="auto_updater_up_to_date">已经是最新版</string>
+    <string name="auto_updater_no_metadata">数据错误</string>
+    <string name="auto_updater_downloading_error">下载失败</string>
+    <string name="auto_updater_downloading_success">下载成功</string>
+</resources>

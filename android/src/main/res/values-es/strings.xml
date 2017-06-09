@@ -7,10 +7,8 @@
 
     <string name="auto_updater_checking">Verificando actualización...</string>
     <string name="auto_updater_downloading">Descargando actualización...</string>
-    <string name="auto_updater_no_hostname">Ningún nombre de host para descargas relativa. Cancelando</string>
     <string name="auto_updater_up_to_date">Está Actualizado</string>
     <string name="auto_updater_no_metadata">No se ha recibido ninguna actualización de metadatos. Cancelando</string>
-    <string name="auto_updater_invalid_metadata">Metadatos de actualización no válida. Cancelando</string>
     <string name="auto_updater_downloading_error">Hubo un error mientras se descargaba la actualización</string>
     <string name="auto_updater_downloading_success">Actualizacion finalizada</string>
 </resources>

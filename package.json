@@ -1,6 +1,6 @@
 {
   "name": "react-native-customized-update",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A library to manage dynamic updates to React Native apps. Available as an NPM Package.",
   "main": "index.js",
   "author": "Rahul Jiresal <rahul@aerofs.com>,liukefu <liukefu2050@sina.com>",
