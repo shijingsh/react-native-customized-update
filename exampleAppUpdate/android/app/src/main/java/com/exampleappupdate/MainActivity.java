@@ -1,8 +1,7 @@
 package com.exampleappupdate;
 
-import com.facebook.react.ReactActivity;
-import com.mg.appupdate.*;
-import com.mg.appupdate.ReactNativeAppUpdate.ReactNativeAutoUpdaterFrequency;
+import com.mg.appupdate.ReactNativeAppUpdateActivity;
+import com.mg.appupdate.ReactNativeAppUpdaterFrequency;
 
 public class MainActivity extends ReactNativeAppUpdateActivity {
 
@@ -26,8 +25,8 @@ public class MainActivity extends ReactNativeAppUpdateActivity {
      * default value - EACH_TIME
      * */
     @Override
-    protected ReactNativeAutoUpdaterFrequency getUpdateFrequency() {
-        return ReactNativeAutoUpdaterFrequency.EACH_TIME;
+    protected ReactNativeAppUpdaterFrequency getUpdateFrequency() {
+        return ReactNativeAppUpdaterFrequency.EACH_TIME;
     }
 
     /**

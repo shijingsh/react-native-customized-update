@@ -3,7 +3,6 @@ package com.mg.appupdate;
 import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
-import com.mg.appupdate.ReactNativeAppUpdate.ReactNativeAutoUpdaterFrequency;
 
 /**
  * @author rahul
@@ -20,13 +19,14 @@ public abstract class ReactNativeAppUpdateActivity extends ReactActivity {
         updater.setCheckVersionUrl(this.getCheckVersionUrl())
                 .setUpdateFrequency(this.getUpdateFrequency())
                 .showProgress(this.getShowProgress())
-                .checkForUpdates();
+                .checkForUpdates()
+                .setAppUpdateActivity(this);
     }
 
     protected abstract String getCheckVersionUrl();
 
-    protected ReactNativeAutoUpdaterFrequency getUpdateFrequency() {
-        return ReactNativeAutoUpdaterFrequency.EACH_TIME;
+    protected ReactNativeAppUpdaterFrequency getUpdateFrequency() {
+        return ReactNativeAppUpdaterFrequency.EACH_TIME;
     }
 
     protected boolean getShowProgress() {

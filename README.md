@@ -44,6 +44,7 @@ react-native link react-native-customized-update
      *  EACH_TIME - each time the app starts
      *  DAILY     - maximum once per day
      *  WEEKLY    - maximum once per week
+     *  MONTHLY   - maximum once per month
 - 5、Override getShowProgress
     To show progress during the update process.(true/false)
 - 6、add metadata file

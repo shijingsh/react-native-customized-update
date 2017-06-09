@@ -29,6 +29,9 @@ import okhttp3.Response;
  */
 
 public class ReactNativeAppUpdate {
+    /**singleton instance*/
+    private static ReactNativeAppUpdate ourInstance = new ReactNativeAppUpdate();
+    private  ReactNativeAppUpdateActivity appUpdateActivity;
 
     public static final String RN_SHARED_PREFERENCES = "React_Native_App_Updater_Shared_Preferences";
     public static final String RN_STORED_VERSION = "React_Native_App_Updater_Stored_Version";
@@ -37,32 +40,20 @@ public class ReactNativeAppUpdate {
     private final String RN_STORED_JS_FILENAME = "main.android.jsbundle";
     private final String RN_STORED_APK_FILENAME = "appUpdateTem.apk";
     private final String RN_STORED_JS_FOLDER = "jsCode";
-    private final String RN_STORED_APK_FOLDER = "apk";
-    /**
-     *  Decide how frequently to check for updates.
-     * Available options -
-     *  EACH_TIME - each time the app starts
-     *  DAILY     - maximum once per day
-     *  WEEKLY    - maximum once per week
-     * default value - EACH_TIME
-     * */
-    public enum ReactNativeAutoUpdaterFrequency {
-        EACH_TIME, DAILY, WEEKLY
-    }
-
-    private static ReactNativeAppUpdate ourInstance = new ReactNativeAppUpdate();
-    private String checkVersionUrl;
+    private final String RN_STORED_APK_FOLDER = "tempApk";
     private String metadataAssetName ="metadata.android.json";
-    private ReactNativeAutoUpdaterFrequency updateFrequency = ReactNativeAutoUpdaterFrequency.EACH_TIME;
+
+    private String checkVersionUrl;
+    private ReactNativeAppUpdaterFrequency updateFrequency = ReactNativeAppUpdaterFrequency.EACH_TIME;
     private Context context;
     private boolean showProgress = true;
-    private JSONObject metadata = null;
+    private JSONObject metadata = new JSONObject();
+    private String jSBundleFilePath = null;
 
     public static ReactNativeAppUpdate getInstance(Context context) {
         ourInstance.context = context;
         return ourInstance;
     }
-
     private ReactNativeAppUpdate() {
     }
 
@@ -70,18 +61,16 @@ public class ReactNativeAppUpdate {
         this.checkVersionUrl = url;
         return this;
     }
-
-    public ReactNativeAppUpdate setUpdateFrequency(ReactNativeAutoUpdaterFrequency frequency) {
+    public ReactNativeAppUpdate setUpdateFrequency(ReactNativeAppUpdaterFrequency frequency) {
         this.updateFrequency = frequency;
         return this;
     }
-
     public ReactNativeAppUpdate showProgress(boolean progress) {
         this.showProgress = progress;
         return this;
     }
 
-    public void checkForUpdates() {
+    public ReactNativeAppUpdate checkForUpdates() {
         if (this.shouldCheckForUpdates()) {
             //读取js版本
             getLatestJsVersion();
@@ -89,11 +78,12 @@ public class ReactNativeAppUpdate {
             FetchMetadataTask task = new FetchMetadataTask();
             task.execute(this.checkVersionUrl);
         }
+        return this;
     }
 
     private boolean shouldCheckForUpdates() {
         //每次启动时检查更新
-        if (this.updateFrequency == ReactNativeAutoUpdaterFrequency.EACH_TIME) {
+        if (this.updateFrequency == ReactNativeAppUpdaterFrequency.EACH_TIME) {
             return true;
         }
 
@@ -107,6 +97,8 @@ public class ReactNativeAppUpdate {
                 return daysSinceUpdate >= 1;
             case WEEKLY:
                 return daysSinceUpdate >= 7;
+            case MONTHLY:
+                return daysSinceUpdate >= 30;
             default:
                 return true;
         }
@@ -134,6 +126,11 @@ public class ReactNativeAppUpdate {
                 e.printStackTrace();
             }
         }
+        // update check time
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong(RN_LAST_UPDATE_TIMESTAMP, new Date().getTime());
+        editor.apply();
+
         return null;
     }
 
@@ -243,7 +240,7 @@ public class ReactNativeAppUpdate {
         }
     }
 
-    private class FetchUpdateTask extends AsyncTask<String, Void, String> {
+    private class FetchJsUpdateTask extends AsyncTask<String, Void, String> {
 
         private PowerManager.WakeLock mWakeLock;
 
@@ -297,6 +294,8 @@ public class ReactNativeAppUpdate {
                 editor.putString(RN_STORED_VERSION, params[1]);
                 editor.putLong(RN_LAST_UPDATE_TIMESTAMP, new Date().getTime());
                 editor.apply();
+                //保存bundle 文件的位置
+                jSBundleFilePath = jsCodeFile.getAbsolutePath();
             } catch (Exception e) {
                 e.printStackTrace();
                 return e.toString();
@@ -317,6 +316,7 @@ public class ReactNativeAppUpdate {
 
         @Override
         protected void onPostExecute(String result) {
+            appUpdateActivity.recreate();
             mWakeLock.release();
             if (result != null) {
                 ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_downloading_error);
@@ -407,6 +407,15 @@ public class ReactNativeAppUpdate {
         }
     }
 
+    /**
+     * js bundle file
+     * @return
+     */
+    public String getJSBundleFile() {
+
+        return jSBundleFilePath;
+    }
+
     public void installApkUpdate(String file) {
         if(file==null)return;
         String cmd = "chmod 777 " + file;
@@ -422,11 +431,11 @@ public class ReactNativeAppUpdate {
     }
 
     public void jsUpdate() {
-        String apkUrl = getMetadata("jsUrl");
+        String jsUrl = getMetadata("jsUrl");
         String version = getMetadata("jsVersion");
-        if(apkUrl==null || version==null)return;
-        FetchUpdateTask updateTask = new FetchUpdateTask();
-        updateTask.execute(apkUrl, version);
+        if(jsUrl==null || version==null)return;
+        FetchJsUpdateTask updateTask = new FetchJsUpdateTask();
+        updateTask.execute(jsUrl, version);
     }
 
     public void apkUpdate() {
@@ -435,5 +444,9 @@ public class ReactNativeAppUpdate {
         if(apkUrl==null || version==null)return;
         FetchApkUpdateTask updateTask = new FetchApkUpdateTask();
         updateTask.execute(apkUrl, version);
+    }
+
+    public void setAppUpdateActivity(ReactNativeAppUpdateActivity appUpdateActivity) {
+        this.appUpdateActivity = appUpdateActivity;
     }
 }
