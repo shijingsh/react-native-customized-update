@@ -30,13 +30,15 @@ react-native link react-native-customized-update
 - 1、import class 
 - 2、MainActivity extends ReactNativeAppUpdateActivity
 - 3、Override getCheckVersionUrl
-   setting url return like:
+   Check for updates
+   ```javascript
    {
      "jsUrl": "js downloading url",
      "jsVersion": "1.0",
      "url": "apk downloading url",
      "version": "2.0"
    } 
+   ```
 - 4、Override getUpdateFrequency
     Decide how frequently to check for updates.
      *  EACH_TIME - each time the app starts
@@ -44,6 +46,16 @@ react-native link react-native-customized-update
      *  WEEKLY    - maximum once per week
 - 5、Override getShowProgress
     To show progress during the update process.(true/false)
+- 6、add metadata file
+    *  file name:metadata.android.json
+    *  direct:root\android\app\src\main\assets
+    *  content:
+       ```javascript
+        {
+            "jsVersion": "1.0",
+            "url": null
+        }
+       ```
 ```java
 package com.exampleappupdate;
 
