@@ -1,7 +1,7 @@
 # react-native-customized-update
 iOS/Android 
-react-native app boudleJs update or apk update
-
+react-native app boudleJs update or apk update.
+Support Chinese and English
 ## Result
 <img width=200 title="update" src="https://github.com/liukefu2050/react-native-customized-update/blob/master/images/1.jpg">
 
