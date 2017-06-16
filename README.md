@@ -18,6 +18,18 @@ import ReactNativeCustomizedUpdate from 'react-native-customized-update';
       ReactNativeCustomizedUpdate.shouldApkUpdate()
   }
 ```
+#### Request Object
+
+| Property        | Type           | Description  |
+| ------------- |:-------------:| :-----|
+| isUpdateNow | bool (default false)      | Enable or disable check update for now |
+
+#### method
+
+| name        | Description  |
+| ------------- | :-----|
+| shouldApkUpdate  | show apk update |
+| shouldJsUpdate  | show js update |
 
 ## Install
 

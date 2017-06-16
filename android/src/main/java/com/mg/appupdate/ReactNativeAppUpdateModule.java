@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableMap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,10 +46,11 @@ public class ReactNativeAppUpdateModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void shouldApkUpdate() {
+    public void shouldApkUpdate(final ReadableMap options) {
         final Activity activity = getCurrentActivity();
         final ReactNativeAppUpdate update = ReactNativeAppUpdate.getInstance(activity);
-        if(update.shouldApkUpdate()){
+        final boolean isUpdateNow = options.hasKey("isUpdateNow") && options.getBoolean("isUpdateNow");
+        if(update.shouldApkUpdate(isUpdateNow)){
             try {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
                 alertDialogBuilder.setTitle(R.string.auto_updater_downloaded_title);
@@ -81,10 +83,11 @@ public class ReactNativeAppUpdateModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void shouldJsUpdate() {
+    public void shouldJsUpdate(final ReadableMap options) {
         final Activity activity = getCurrentActivity();
         final ReactNativeAppUpdate update = ReactNativeAppUpdate.getInstance(activity);
-        if(update.shouldJsUpdate()){
+        final boolean isUpdateNow = options.hasKey("isUpdateNow") && options.getBoolean("isUpdateNow");
+        if(update.shouldJsUpdate(isUpdateNow)){
             try {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
                 alertDialogBuilder.setTitle(R.string.auto_updater_downloaded_title);

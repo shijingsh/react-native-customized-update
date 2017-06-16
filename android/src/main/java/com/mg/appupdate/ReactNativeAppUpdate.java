@@ -72,13 +72,19 @@ public class ReactNativeAppUpdate {
 
     public ReactNativeAppUpdate checkForUpdates() {
         if (this.shouldCheckForUpdates()) {
-            //读取js版本
-            getLatestJsVersion();
-            this.showProgressToast(R.string.auto_updater_checking);
-            FetchMetadataTask task = new FetchMetadataTask();
-            task.execute(this.checkVersionUrl);
+            checkUpdate();
         }
         return this;
+    }
+
+    public boolean checkUpdate(){
+        //读取js版本
+        getLatestJsVersion();
+        this.showProgressToast(R.string.auto_updater_checking);
+        FetchMetadataTask task = new FetchMetadataTask();
+        task.execute(this.checkVersionUrl);
+
+        return false;
     }
 
     private boolean shouldCheckForUpdates() {
@@ -149,7 +155,12 @@ public class ReactNativeAppUpdate {
         return jsonString;
     }
 
-    public boolean shouldJsUpdate() {
+    public boolean shouldJsUpdate(boolean isUpdateNow) {
+        if(isUpdateNow){
+            if(checkVersionUrl != null) {
+                this.metadata = fetchMetaData(this.checkVersionUrl);
+            }
+        }
         String jsVersionStr = getMetadata("jsVersion");
         if(jsVersionStr==null)return false;
         boolean shouldUpdate = false;
@@ -169,7 +180,12 @@ public class ReactNativeAppUpdate {
         return shouldUpdate;
     }
 
-    public boolean shouldApkUpdate() {
+    public boolean shouldApkUpdate(boolean isUpdateNow) {
+        if(isUpdateNow){
+            if(checkVersionUrl != null) {
+                this.metadata = fetchMetaData(this.checkVersionUrl);
+            }
+        }
         String version = getMetadata("version");
         if(version==null)return false;
         String currentApkVersionStr = this.getContainerVersion();
@@ -208,29 +224,33 @@ public class ReactNativeAppUpdate {
         }
     }
 
+    private JSONObject fetchMetaData(String checkVersionUrl){
+        JSONObject metadata  = new JSONObject();
+        try {
+            URL url = new URL(checkVersionUrl);
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+
+            Response response = client.newCall(request).execute();
+            String metadataStr = response.body().string();
+            if (!metadataStr.isEmpty()) {
+                metadata = new JSONObject(metadataStr);
+            } else {
+                ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_no_metadata);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return metadata;
+    }
+
     private class FetchMetadataTask extends AsyncTask<String, Void, JSONObject> {
 
         @Override
         protected JSONObject doInBackground(String... params) {
-            String metadataStr;
-            JSONObject metadata  = new JSONObject();
-            try {
-                URL url = new URL(params[0]);
-                OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .url(url)
-                        .build();
-
-                Response response = client.newCall(request).execute();
-                metadataStr = response.body().string();
-                if (!metadataStr.isEmpty()) {
-                    metadata = new JSONObject(metadataStr);
-                } else {
-                    ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_no_metadata);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            JSONObject metadata  = fetchMetaData(params[0]);
             return metadata;
         }
 
