@@ -15,7 +15,7 @@ import ReactNativeCustomizedUpdate from 'react-native-customized-update';
 
 ```javascript
   componentDidMount(){
-      ReactNativeCustomizedUpdate.shouldApkUpdate()
+      ReactNativeCustomizedUpdate.shouldApkUpdate({})
   }
 ```
 #### Request Object
