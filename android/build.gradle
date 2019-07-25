@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 24
+        targetSdkVersion 28
         versionCode 1
     }
     lintOptions {
@@ -19,6 +19,6 @@ android {
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:+'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    implementation 'com.facebook.react:react-native:+'
+    implementation 'com.squareup.okhttp3:okhttp:3.2.0'
 }
