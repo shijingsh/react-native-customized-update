@@ -4,9 +4,6 @@ import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
 
-/**
- * @author rahul
- */
 public abstract class ReactNativeAppUpdateActivity extends ReactActivity {
 
     private ReactNativeAppUpdate updater;

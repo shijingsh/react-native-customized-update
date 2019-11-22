@@ -1,10 +1,6 @@
 package com.mg.appupdate;
 
-import android.support.annotation.NonNull;
 
-/**
- * @author rahul
- */
 public class Version implements Comparable<Version> {
 
     private String version;
@@ -22,7 +18,7 @@ public class Version implements Comparable<Version> {
     }
 
     @Override
-    public int compareTo(@NonNull Version that) {
+    public int compareTo( Version that) {
         String[] thisParts = this.get().split("\\.");
         String[] thatParts = that.get().split("\\.");
         int length = Math.max(thisParts.length, thatParts.length);

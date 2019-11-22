@@ -24,10 +24,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * @author rahul
- */
-
 public class ReactNativeAppUpdate {
     /**singleton instance*/
     private static ReactNativeAppUpdate ourInstance = new ReactNativeAppUpdate();

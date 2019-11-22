@@ -14,11 +14,7 @@ import com.facebook.react.bridge.ReadableMap;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nullable;
 
-/**
- * @author rahul
- */
 public class ReactNativeAppUpdateModule extends ReactContextBaseJavaModule {
 
     private ReactApplicationContext context;
@@ -33,7 +29,6 @@ public class ReactNativeAppUpdateModule extends ReactContextBaseJavaModule {
         return "ReactNativeCustomizedUpdate";
     }
 
-    @Nullable
     @Override
     public Map<String, Object> getConstants() {
         Map<String, Object> constants = new HashMap<>();
