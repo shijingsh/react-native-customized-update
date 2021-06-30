@@ -76,9 +76,11 @@ public class ReactNativeAppUpdate {
     public boolean checkUpdate(){
         //读取js版本
         getLatestJsVersion();
-        this.showProgressToast(R.string.auto_updater_checking);
+        //this.showProgressToast(R.string.auto_updater_checking);
         FetchMetadataTask task = new FetchMetadataTask();
-        task.execute(this.checkVersionUrl);
+        if(this.checkVersionUrl!=null){
+            task.execute(this.checkVersionUrl);
+        }
 
         return false;
     }

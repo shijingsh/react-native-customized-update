@@ -45,6 +45,12 @@ public class ReactNativeAppUpdateModule extends ReactContextBaseJavaModule {
         final Activity activity = getCurrentActivity();
         final ReactNativeAppUpdate update = ReactNativeAppUpdate.getInstance(activity);
         final boolean isUpdateNow = options.hasKey("isUpdateNow") && options.getBoolean("isUpdateNow");
+        String checkVersionUrl = "";
+        if(options.hasKey("checkVersionUrl") ){
+            checkVersionUrl = options.getString("checkVersionUrl");
+            update.setCheckVersionUrl(checkVersionUrl);
+        }
+
         if(update.shouldApkUpdate(isUpdateNow)){
             try {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
@@ -82,6 +88,12 @@ public class ReactNativeAppUpdateModule extends ReactContextBaseJavaModule {
         final Activity activity = getCurrentActivity();
         final ReactNativeAppUpdate update = ReactNativeAppUpdate.getInstance(activity);
         final boolean isUpdateNow = options.hasKey("isUpdateNow") && options.getBoolean("isUpdateNow");
+        String checkVersionUrl = "";
+        if(options.hasKey("checkVersionUrl") ){
+            checkVersionUrl = options.getString("checkVersionUrl");
+            update.setCheckVersionUrl(checkVersionUrl);
+        }
+
         if(update.shouldJsUpdate(isUpdateNow)){
             try {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
