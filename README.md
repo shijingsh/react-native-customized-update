@@ -23,6 +23,7 @@ import ReactNativeCustomizedUpdate from 'react-native-customized-update';
 | Property        | Type           | Description  |
 | ------------- |:-------------:| :-----|
 | isUpdateNow | bool (default false)      | Enable or disable check update for now |
+| checkVersionUrl | String      | set checkVersionUrl  |
 
 #### method
 
