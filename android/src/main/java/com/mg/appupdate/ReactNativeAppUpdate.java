@@ -366,6 +366,7 @@ public class ReactNativeAppUpdate {
             HttpURLConnection connection = null;
             String filePath = null;
             try {
+                ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_downloading);
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
