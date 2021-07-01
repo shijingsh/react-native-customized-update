@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.PowerManager;
 import android.widget.Toast;
 
+import com.zhy.base.fileprovider.FileProvider7;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -276,6 +278,7 @@ public class ReactNativeAppUpdate {
             FileOutputStream output = null;
             HttpURLConnection connection = null;
             try {
+                ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_downloading);
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
@@ -444,7 +447,12 @@ public class ReactNativeAppUpdate {
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setDataAndType(Uri.parse("file://" + file), "application/vnd.android.package-archive");
+        //intent.setDataAndType(Uri.parse("file://" + file), "application/vnd.android.package-archive");
+        //FileProvider7
+        File fileObj = new File(file);
+        FileProvider7.setIntentDataAndType(this.context,
+                intent, "application/vnd.android.package-archive", fileObj, true);
+
         ourInstance.context.startActivity(intent);
     }
 
