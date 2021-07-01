@@ -267,6 +267,8 @@ public class ReactNativeAppUpdate {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_downloading);
+
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
             mWakeLock.acquire();
@@ -278,7 +280,7 @@ public class ReactNativeAppUpdate {
             FileOutputStream output = null;
             HttpURLConnection connection = null;
             try {
-                ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_downloading);
+
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
@@ -354,6 +356,8 @@ public class ReactNativeAppUpdate {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_downloading);
+
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
             mWakeLock.acquire();
@@ -366,7 +370,7 @@ public class ReactNativeAppUpdate {
             HttpURLConnection connection = null;
             String filePath = null;
             try {
-                ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_downloading);
+
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
