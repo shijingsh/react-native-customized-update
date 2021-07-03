@@ -80,21 +80,7 @@ public class ReactNativeAppUpdateModule extends ReactContextBaseJavaModule {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    @ReactMethod
-    public void shouldJsUpdate(final ReadableMap options) {
-        final Activity activity = getCurrentActivity();
-        final ReactNativeAppUpdate update = ReactNativeAppUpdate.getInstance(activity);
-        final boolean isUpdateNow = options.hasKey("isUpdateNow") && options.getBoolean("isUpdateNow");
-        String checkVersionUrl = "";
-        if(options.hasKey("checkVersionUrl") ){
-            checkVersionUrl = options.getString("checkVersionUrl");
-            update.setCheckVersionUrl(checkVersionUrl);
-        }
-
-        if(update.shouldJsUpdate(isUpdateNow)){
+        }else if(update.shouldJsUpdate(isUpdateNow)){
             try {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
                 alertDialogBuilder.setTitle(R.string.auto_updater_downloaded_title);

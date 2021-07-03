@@ -30,7 +30,6 @@ import ReactNativeCustomizedUpdate from 'react-native-customized-update';
 | name        | Description  |
 | ------------- | :-----|
 | shouldApkUpdate  | show apk update |
-| shouldJsUpdate  | show js update |
 
 ## Install
 
@@ -47,9 +46,9 @@ react-native link react-native-customized-update
    ```javascript
    {
      "jsUrl": "js downloading url",
-     "jsVersion": "1.0",
+     "jsVersion": "1.0.0",
      "url": "apk downloading url",
-     "version": "2.0"
+     "version": "2.0.0"
    } 
    ```
 - 4、Override getUpdateFrequency
@@ -66,7 +65,7 @@ react-native link react-native-customized-update
     *  content:
        ```javascript
         {
-            "jsVersion": "1.0",
+            "jsVersion": "1.0.0",
             "url": null
         }
        ```

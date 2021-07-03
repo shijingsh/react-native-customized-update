@@ -156,11 +156,7 @@ public class ReactNativeAppUpdate {
     }
 
     public boolean shouldJsUpdate(boolean isUpdateNow) {
-        if(isUpdateNow){
-            if(checkVersionUrl != null) {
-                this.metadata = fetchMetaData(this.checkVersionUrl);
-            }
-        }
+
         String jsVersionStr = getMetadata("jsVersion");
         if(jsVersionStr==null)return false;
         boolean shouldUpdate = false;
@@ -480,4 +476,43 @@ public class ReactNativeAppUpdate {
     public void setAppUpdateActivity(ReactNativeAppUpdateActivity appUpdateActivity) {
         this.appUpdateActivity = appUpdateActivity;
     }
+
+    public String getLatestJSCodeLocation() {
+        SharedPreferences prefs = context.getSharedPreferences(RN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        String currentVersionStr = prefs.getString(RN_STORED_VERSION, null);
+
+        Version currentVersion;
+        try {
+            currentVersion = new Version(currentVersionStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        String jsonString = this.getStringFromAsset(this.metadataAssetName);
+        if (jsonString == null) {
+            return null;
+        } else {
+            String jsCodePath = null;
+            try {
+                JSONObject assetMetadata = new JSONObject(jsonString);
+                String assetVersionStr = assetMetadata.getString("jsVersion");
+                Version assetVersion = new Version(assetVersionStr);
+
+                if (currentVersion.compareTo(assetVersion) > 0) {
+                    File jsCodeDir = context.getDir(RN_STORED_JS_FOLDER, Context.MODE_PRIVATE);
+                    File jsCodeFile = new File(jsCodeDir, RN_STORED_JS_FILENAME);
+                    jsCodePath = jsCodeFile.getAbsolutePath();
+                } else {
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString(RN_STORED_VERSION, currentVersionStr);
+                    editor.apply();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return jsCodePath;
+        }
+    }
+
 }
