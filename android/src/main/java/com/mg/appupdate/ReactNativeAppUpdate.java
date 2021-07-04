@@ -33,7 +33,6 @@ public class ReactNativeAppUpdate {
 
     public static final String RN_SHARED_PREFERENCES = "React_Native_App_Updater_Shared_Preferences";
     public static final String RN_STORED_VERSION = "React_Native_App_Updater_Stored_Version";
-    public static final String RN_STORED_JS_VERSION = "React_Native_App_Updater_Stored_Js_Version";
     private final String RN_LAST_UPDATE_TIMESTAMP = "React_Native_App_Updater_Last_Update_Timestamp";
     private final String RN_STORED_JS_FILENAME = "main.android.jsbundle";
     private final String RN_STORED_APK_FILENAME = "appUpdateTem.apk";
@@ -112,7 +111,7 @@ public class ReactNativeAppUpdate {
 
     public String getLatestJsVersion() {
         SharedPreferences prefs = context.getSharedPreferences(RN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        String currentVersionStr = prefs.getString(RN_STORED_JS_VERSION, null);
+        String currentVersionStr = prefs.getString(RN_STORED_VERSION, null);
         if(currentVersionStr!=null&&currentVersionStr.trim().length()>0){
             return currentVersionStr;
         }
@@ -125,7 +124,7 @@ public class ReactNativeAppUpdate {
                 JSONObject assetMetadata = new JSONObject(jsonString);
                 String assetVersionStr = assetMetadata.getString("jsVersion");
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString(RN_STORED_JS_VERSION, assetVersionStr);
+                editor.putString(RN_STORED_VERSION, assetVersionStr);
                 editor.apply();
                 return assetVersionStr;
             } catch (Exception e) {
@@ -162,7 +161,7 @@ public class ReactNativeAppUpdate {
         boolean shouldUpdate = false;
         //判断js版本
         SharedPreferences prefs = context.getSharedPreferences(RN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        String currentVersionStr = prefs.getString(RN_STORED_JS_VERSION, null);
+        String currentVersionStr = prefs.getString(RN_STORED_VERSION, null);
         if (currentVersionStr == null) {
             shouldUpdate = true;
         } else {
@@ -335,7 +334,7 @@ public class ReactNativeAppUpdate {
 
         @Override
         protected void onPostExecute(String result) {
-            appUpdateActivity.recreate();
+            appUpdateActivity.loadBundle();
             mWakeLock.release();
             if (result != null) {
                 ReactNativeAppUpdate.this.showProgressToast(R.string.auto_updater_downloading_error);
@@ -479,7 +478,7 @@ public class ReactNativeAppUpdate {
 
     public String getLatestJSCodeLocation() {
         SharedPreferences prefs = context.getSharedPreferences(RN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        String currentVersionStr = prefs.getString(RN_STORED_VERSION, null);
+        String currentVersionStr = prefs.getString(RN_STORED_VERSION, "1.0.0");
 
         Version currentVersion;
         try {

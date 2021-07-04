@@ -35,7 +35,7 @@ public class ReactNativeAppUpdateModule extends ReactContextBaseJavaModule {
         SharedPreferences prefs = this.context.getSharedPreferences(
                 ReactNativeAppUpdate.RN_SHARED_PREFERENCES, Context.MODE_PRIVATE
         );
-        String version =  prefs.getString(ReactNativeAppUpdate.RN_STORED_JS_VERSION, null);
+        String version =  prefs.getString(ReactNativeAppUpdate.RN_STORED_VERSION, null);
         constants.put("jsCodeVersion", version);
         return constants;
     }

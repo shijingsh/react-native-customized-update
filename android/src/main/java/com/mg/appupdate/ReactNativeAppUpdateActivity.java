@@ -22,6 +22,8 @@ public abstract class ReactNativeAppUpdateActivity extends ReactActivity {
 
     protected abstract String getCheckVersionUrl();
 
+    protected abstract void loadBundle();
+
     protected ReactNativeAppUpdaterFrequency getUpdateFrequency() {
         return ReactNativeAppUpdaterFrequency.EACH_TIME;
     }
