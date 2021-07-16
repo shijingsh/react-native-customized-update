@@ -18,6 +18,15 @@ import ReactNativeCustomizedUpdate from 'react-native-customized-update';
       ReactNativeCustomizedUpdate.shouldApkUpdate({})
   }
 ```
+
+#### clear app cache 
+```javascript
+   ReactNativeCustomizedUpdate.getAppCacheSize(callback)
+```
+
+```javascript
+ ReactNativeCustomizedUpdate.clearAppCache(callback)
+```
 #### Request Object
 
 | Property        | Type           | Description  |
