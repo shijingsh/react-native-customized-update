@@ -21,11 +21,19 @@ import ReactNativeCustomizedUpdate from 'react-native-customized-update';
 
 #### clear app cache 
 ```javascript
-   ReactNativeCustomizedUpdate.getAppCacheSize(callback)
+    ReactNativeCustomizedUpdate.getAppCacheSize(function (value, unit) {
+            //console.log(value)
+            //console.log(unit)
+
+            //that.setState({cacheSize:value+unit});
+     })
 ```
 
 ```javascript
- ReactNativeCustomizedUpdate.clearAppCache(callback)
+    ReactNativeCustomizedUpdate.clearAppCache(function () {
+
+        //that.setState({cacheSize:''});
+    })
 ```
 #### Request Object
 
