@@ -35,6 +35,15 @@ import ReactNativeCustomizedUpdate from 'react-native-customized-update';
         //that.setState({cacheSize:''});
     })
 ```
+
+#### get app version 
+```javascript
+    ReactNativeCustomizedUpdate.getAppVersion(function (version) {
+
+        //that.setState({version:version});
+    })
+```
+
 #### Request Object
 
 | Property        | Type           | Description  |

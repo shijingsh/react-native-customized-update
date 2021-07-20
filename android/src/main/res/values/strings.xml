@@ -4,6 +4,8 @@
     <string name="auto_updater_downloaded_message">There is an update. Do you want to downloaded it now?</string>
     <string name="auto_updater_downloaded_now">Now</string>
     <string name="auto_updater_downloaded_later">Later</string>
+    <string name="auto_updater_downloaded_message_force">Your version is out of date. It is strongly recommended to upgrade, otherwise it will not be used. Update now?</string>
+    <string name="auto_updater_downloaded_exit">exit</string>
 
     <string name="auto_updater_checking">Checking for update...</string>
     <string name="auto_updater_downloading">Downloading update...</string>

@@ -190,7 +190,7 @@ public class ReactNativeAppUpdate {
         return currentApkVersion.compareTo(apkVersion) < 0;
     }
 
-    private String getMetadata(String name){
+    public String getMetadata(String name){
         String value = null;
         try {
             value = metadata.getString(name);
@@ -200,7 +200,7 @@ public class ReactNativeAppUpdate {
         return value;
     }
 
-    private String getContainerVersion() {
+    public String getContainerVersion() {
         String version = null;
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);

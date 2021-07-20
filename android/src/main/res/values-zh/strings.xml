@@ -4,6 +4,8 @@
     <string name="auto_updater_downloaded_message">已经有了新版，现在更新吗?</string>
     <string name="auto_updater_downloaded_now">现在下载</string>
     <string name="auto_updater_downloaded_later">稍后</string>
+    <string name="auto_updater_downloaded_message_force">您的版本已经过时，强烈建议升级，否则将无法使用，现在更新吗?</string>
+    <string name="auto_updater_downloaded_exit">退出</string>
 
     <string name="auto_updater_checking">检查更新...</string>
     <string name="auto_updater_downloading">下载中...</string>

@@ -5,6 +5,9 @@
     <string name="auto_updater_downloaded_now">Ahora</string>
     <string name="auto_updater_downloaded_later">Después</string>
 
+    <string name="auto_updater_downloaded_message_force">Una actualización fue descargada. ¿Desea instalarlo?</string>
+    <string name="auto_updater_downloaded_exit">Después</string>
+
     <string name="auto_updater_checking">Verificando actualización...</string>
     <string name="auto_updater_downloading">Descargando actualización...</string>
     <string name="auto_updater_up_to_date">Está Actualizado</string>

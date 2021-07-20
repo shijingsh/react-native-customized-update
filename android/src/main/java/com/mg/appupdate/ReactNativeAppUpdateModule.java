@@ -60,30 +60,60 @@ public class ReactNativeAppUpdateModule extends ReactContextBaseJavaModule {
 
         if(update.shouldApkUpdate(isUpdateNow)){
             try {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
-                alertDialogBuilder.setTitle(R.string.auto_updater_downloaded_title);
-                alertDialogBuilder
-                        .setMessage(R.string.auto_updater_downloaded_message)
-                        .setCancelable(false)
-                        .setPositiveButton(
-                                R.string.auto_updater_downloaded_now,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        update.apkUpdate();
+                if("1".equals(update.getMetadata("forceUpdate"))){
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+                    alertDialogBuilder.setTitle(R.string.auto_updater_downloaded_title);
+                    alertDialogBuilder
+                            .setMessage(R.string.auto_updater_downloaded_message_force)
+                            .setCancelable(false)
+                            .setPositiveButton(
+                                    R.string.auto_updater_downloaded_now,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            update.apkUpdate();
+                                        }
                                     }
-                                }
-                        )
-                        .setNegativeButton(
-                                R.string.auto_updater_downloaded_later,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
+                            )
+                            .setNegativeButton(
+                                    R.string.auto_updater_downloaded_exit,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                            activity.finish();
+                                            System.exit(0);
+                                        }
                                     }
-                                }
-                        );
+                            );
 
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }else{
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+                    alertDialogBuilder.setTitle(R.string.auto_updater_downloaded_title);
+                    alertDialogBuilder
+                            .setMessage(R.string.auto_updater_downloaded_message)
+                            .setCancelable(false)
+                            .setPositiveButton(
+                                    R.string.auto_updater_downloaded_now,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            update.apkUpdate();
+                                        }
+                                    }
+                            )
+                            .setNegativeButton(
+                                    R.string.auto_updater_downloaded_later,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    }
+                            );
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -119,6 +149,17 @@ public class ReactNativeAppUpdateModule extends ReactContextBaseJavaModule {
         }
     }
 
+    /**
+     * 获取app版本
+     * @param callback
+     */
+    @ReactMethod
+    public void getAppVersion(Callback callback) {
+        final Activity activity = getCurrentActivity();
+        final ReactNativeAppUpdate update = ReactNativeAppUpdate.getInstance(activity);
+        String currentApkVersionStr = update.getContainerVersion();
+        callback.invoke(currentApkVersionStr);
+    }
 
     //获取缓存大小
     @ReactMethod
