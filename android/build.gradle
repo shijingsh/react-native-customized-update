@@ -22,5 +22,6 @@ dependencies {
     implementation 'com.facebook.react:react-native:+'
     implementation 'com.squareup.okhttp3:okhttp:3.2.0'
 
-    implementation 'com.zhy.base:fileprovider:1.0.0'
+    //implementation 'com.zhy.base:fileprovider:1.0.0'
+    api 'com.mg.RxCustomizedImagePicker:fileprovider:1.0.0'
 }
