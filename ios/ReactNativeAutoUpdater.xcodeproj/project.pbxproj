@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B781E7641C53023300F23A25 /* ReactNativeAutoUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = B781E7611C53023300F23A25 /* ReactNativeAutoUpdater.m */; };
+		B781E7641C53023300F23A25 /* ReactNativeCustomizedUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = B781E7611C53023300F23A25 /* ReactNativeCustomizedUpdate.m */; };
 		B781E7651C53023300F23A25 /* StatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = B781E7631C53023300F23A25 /* StatusBarNotification.m */; };
 /* End PBXBuildFile section */
 
@@ -24,9 +24,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B781E74E1C52EC0100F23A25 /* libReactNativeAutoUpdater.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReactNativeAutoUpdater.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		B781E7601C53023300F23A25 /* ReactNativeAutoUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactNativeAutoUpdater.h; sourceTree = "<group>"; };
-		B781E7611C53023300F23A25 /* ReactNativeAutoUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReactNativeAutoUpdater.m; sourceTree = "<group>"; };
+		B781E74E1C52EC0100F23A25 /* libReactNativeCustomizedUpdate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReactNativeCustomizedUpdate.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B781E7601C53023300F23A25 /* ReactNativeCustomizedUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactNativeCustomizedUpdate.h; sourceTree = "<group>"; };
+		B781E7611C53023300F23A25 /* ReactNativeCustomizedUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReactNativeCustomizedUpdate.m; sourceTree = "<group>"; };
 		B781E7621C53023300F23A25 /* StatusBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusBarNotification.h; sourceTree = "<group>"; };
 		B781E7631C53023300F23A25 /* StatusBarNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusBarNotification.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -45,7 +45,7 @@
 		B781E7451C52EC0100F23A25 = {
 			isa = PBXGroup;
 			children = (
-				B781E7501C52EC0100F23A25 /* ReactNativeAutoUpdater */,
+				B781E7501C52EC0100F23A25 /* ReactNativeCustomizedUpdate */,
 				B781E74F1C52EC0100F23A25 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,28 +53,28 @@
 		B781E74F1C52EC0100F23A25 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B781E74E1C52EC0100F23A25 /* libReactNativeAutoUpdater.a */,
+				B781E74E1C52EC0100F23A25 /* libReactNativeCustomizedUpdate.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B781E7501C52EC0100F23A25 /* ReactNativeAutoUpdater */ = {
+		B781E7501C52EC0100F23A25 /* ReactNativeCustomizedUpdate */ = {
 			isa = PBXGroup;
 			children = (
-				B781E7601C53023300F23A25 /* ReactNativeAutoUpdater.h */,
-				B781E7611C53023300F23A25 /* ReactNativeAutoUpdater.m */,
+				B781E7601C53023300F23A25 /* ReactNativeCustomizedUpdate.h */,
+				B781E7611C53023300F23A25 /* ReactNativeCustomizedUpdate.m */,
 				B781E7621C53023300F23A25 /* StatusBarNotification.h */,
 				B781E7631C53023300F23A25 /* StatusBarNotification.m */,
 			);
-			path = ReactNativeAutoUpdater;
+			path = ReactNativeCustomizedUpdate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B781E74D1C52EC0100F23A25 /* ReactNativeAutoUpdater */ = {
+		B781E74D1C52EC0100F23A25 /* ReactNativeCustomizedUpdate */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B781E7571C52EC0100F23A25 /* Build configuration list for PBXNativeTarget "ReactNativeAutoUpdater" */;
+			buildConfigurationList = B781E7571C52EC0100F23A25 /* Build configuration list for PBXNativeTarget "ReactNativeCustomizedUpdate" */;
 			buildPhases = (
 				B781E74A1C52EC0100F23A25 /* Sources */,
 				B781E74B1C52EC0100F23A25 /* Frameworks */,
@@ -84,9 +84,9 @@
 			);
 			dependencies = (
 			);
-			name = ReactNativeAutoUpdater;
-			productName = ReactNativeAutoUpdater;
-			productReference = B781E74E1C52EC0100F23A25 /* libReactNativeAutoUpdater.a */;
+			name = ReactNativeCustomizedUpdate;
+			productName = ReactNativeCustomizedUpdate;
+			productReference = B781E74E1C52EC0100F23A25 /* libReactNativeCustomizedUpdate.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -103,7 +103,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B781E7491C52EC0100F23A25 /* Build configuration list for PBXProject "ReactNativeAutoUpdater" */;
+			buildConfigurationList = B781E7491C52EC0100F23A25 /* Build configuration list for PBXProject "ReactNativeCustomizedUpdate" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -115,7 +115,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B781E74D1C52EC0100F23A25 /* ReactNativeAutoUpdater */,
+				B781E74D1C52EC0100F23A25 /* ReactNativeCustomizedUpdate */,
 			);
 		};
 /* End PBXProject section */
@@ -126,7 +126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B781E7651C53023300F23A25 /* StatusBarNotification.m in Sources */,
-				B781E7641C53023300F23A25 /* ReactNativeAutoUpdater.m in Sources */,
+				B781E7641C53023300F23A25 /* ReactNativeCustomizedUpdate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +240,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B781E7491C52EC0100F23A25 /* Build configuration list for PBXProject "ReactNativeAutoUpdater" */ = {
+		B781E7491C52EC0100F23A25 /* Build configuration list for PBXProject "ReactNativeCustomizedUpdate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B781E7551C52EC0100F23A25 /* Debug */,
@@ -249,7 +249,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B781E7571C52EC0100F23A25 /* Build configuration list for PBXNativeTarget "ReactNativeAutoUpdater" */ = {
+		B781E7571C52EC0100F23A25 /* Build configuration list for PBXNativeTarget "ReactNativeCustomizedUpdate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B781E7581C52EC0100F23A25 /* Debug */,

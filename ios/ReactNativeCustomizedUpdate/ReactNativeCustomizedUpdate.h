@@ -1,6 +1,6 @@
 //
-//  ReactNativeAutoUpdater.h
-//  ReactNativeAutoUpdater
+//  ReactNativeCustomizedUpdate.h
+//  ReactNativeCustomizedUpdate
 //
 //  Created by Rahul Jiresal on 11/23/15.
 //  Copyright © 2015 Rahul Jiresal. All rights reserved.
@@ -8,31 +8,31 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, ReactNativeAutoUpdaterUpdateType)
+typedef NS_ENUM(NSUInteger, ReactNativeCustomizedUpdateUpdateType)
 {
   // Versions are in format Major.Minor.Patch
-  ReactNativeAutoUpdaterMajorUpdate = 1,   // Updates are only applied if the major version number changes
-  ReactNativeAutoUpdaterMinorUpdate,       // (DEFAULT) Updates are applied if major or minor version changes
-  ReactNativeAutoUpdaterPatchUpdate,       // Updates are applied if major, minor or patch version changes
+  ReactNativeCustomizedUpdateMajorUpdate = 1,   // Updates are only applied if the major version number changes
+  ReactNativeCustomizedUpdateMinorUpdate,       // (DEFAULT) Updates are applied if major or minor version changes
+  ReactNativeCustomizedUpdatePatchUpdate,       // Updates are applied if major, minor or patch version changes
 };
 
-@class ReactNativeAutoUpdater;
+@class ReactNativeCustomizedUpdate;
 
-@protocol ReactNativeAutoUpdaterDelegate <NSObject>
+@protocol ReactNativeCustomizedUpdateDelegate <NSObject>
 
-- (void)ReactNativeAutoUpdater:(ReactNativeAutoUpdater *)reactiveNativeAutoUpdater updateDownloadedToURL:(NSURL*)url currentVersion:(NSString *)currentVersion;
-- (void)ReactNativeAutoUpdater:(ReactNativeAutoUpdater *)reactiveNativeAutoUpdater updateDownloadFailed:(NSError *)error;
+- (void)ReactNativeCustomizedUpdate:(ReactNativeCustomizedUpdate *)reactiveNativeAutoUpdater updateDownloadedToURL:(NSURL*)url currentVersion:(NSString *)currentVersion;
+- (void)ReactNativeCustomizedUpdate:(ReactNativeCustomizedUpdate *)reactiveNativeAutoUpdater updateDownloadFailed:(NSError *)error;
 
 @end
 
-@interface ReactNativeAutoUpdater : NSObject
+@interface ReactNativeCustomizedUpdate : NSObject
 
-@property (weak) id<ReactNativeAutoUpdaterDelegate> delegate;
+@property (weak) id<ReactNativeCustomizedUpdateDelegate> delegate;
 
 /**
- *  Returns the singleton instance of ReactNativeAutoUpdater
+ *  Returns the singleton instance of ReactNativeCustomizedUpdate
  *
- *  @return instance of ReactNativeAutoUpdater
+ *  @return instance of ReactNativeCustomizedUpdate
  */
 + (id)sharedInstance;
 
@@ -87,7 +87,7 @@ typedef NS_ENUM(NSUInteger, ReactNativeAutoUpdaterUpdateType)
  *
  *  @param type type of udpates to download
  */
-- (void)downloadUpdatesForType:(ReactNativeAutoUpdaterUpdateType)type;
+- (void)downloadUpdatesForType:(ReactNativeCustomizedUpdateUpdateType)type;
 
 /**
  *  When the JSON file has a relative URL for downloading the JS Bundle,

@@ -1,19 +1,19 @@
 //
-//  ReactNativeAutoUpdater.m
-//  ReactNativeAutoUpdater
+//  ReactNativeCustomizedUpdate.m
+//  ReactNativeCustomizedUpdate
 //
 //  Created by Rahul Jiresal on 11/23/15.
 //  Copyright © 2015 Rahul Jiresal. All rights reserved.
 //
 
-#import "ReactNativeAutoUpdater.h"
+#import "ReactNativeCustomizedUpdate.h"
 #import "StatusBarNotification.h"
 #import "RCTBridge.h"
 
-NSString* const ReactNativeAutoUpdaterLastUpdateCheckDate = @"ReactNativeAutoUpdater Last Update Check Date";
-NSString* const ReactNativeAutoUpdaterCurrentJSCodeMetadata = @"ReactNativeAutoUpdater Current JS Code Metadata";
+NSString* const ReactNativeCustomizedUpdateLastUpdateCheckDate = @"ReactNativeCustomizedUpdate Last Update Check Date";
+NSString* const ReactNativeCustomizedUpdateCurrentJSCodeMetadata = @"ReactNativeCustomizedUpdate Current JS Code Metadata";
 
-@interface ReactNativeAutoUpdater() <NSURLSessionDownloadDelegate, RCTBridgeModule>
+@interface ReactNativeCustomizedUpdate() <NSURLSessionDownloadDelegate, RCTBridgeModule>
 
 @property NSURL* defaultJSCodeLocation;
 @property NSURL* defaultMetadataFileLocation;
@@ -22,17 +22,17 @@ NSString* const ReactNativeAutoUpdaterCurrentJSCodeMetadata = @"ReactNativeAutoU
 @property BOOL showProgress;
 @property BOOL allowCellularDataUse;
 @property NSString* hostname;
-@property ReactNativeAutoUpdaterUpdateType updateType;
+@property ReactNativeCustomizedUpdateUpdateType updateType;
 @property NSDictionary* updateMetadata;
 @property BOOL initializationOK;
 
 @end
 
-@implementation ReactNativeAutoUpdater
+@implementation ReactNativeCustomizedUpdate
 
 RCT_EXPORT_MODULE()
 
-static ReactNativeAutoUpdater *RNAUTOUPDATER_SINGLETON = nil;
+static ReactNativeCustomizedUpdate *RNAUTOUPDATER_SINGLETON = nil;
 static bool isFirstAccess = YES;
 
 + (id)sharedInstance
@@ -43,7 +43,7 @@ static bool isFirstAccess = YES;
         RNAUTOUPDATER_SINGLETON = [[super allocWithZone:NULL] init];
         [RNAUTOUPDATER_SINGLETON defaults];
     });
-    
+
     return RNAUTOUPDATER_SINGLETON;
 }
 
@@ -62,11 +62,11 @@ static bool isFirstAccess = YES;
 }
 
 - (id)copy {
-    return [[ReactNativeAutoUpdater alloc] init];
+    return [[ReactNativeCustomizedUpdate alloc] init];
 }
 
 - (id)mutableCopy {
-    return [[ReactNativeAutoUpdater alloc] init];
+    return [[ReactNativeCustomizedUpdate alloc] init];
 }
 
 - (id) init {
@@ -83,13 +83,13 @@ static bool isFirstAccess = YES;
 - (void)defaults {
     self.showProgress = YES;
     self.allowCellularDataUse = NO;
-    self.updateType = ReactNativeAutoUpdaterMinorUpdate;
+    self.updateType = ReactNativeCustomizedUpdateMinorUpdate;
 }
 
 #pragma mark - JS methods
 
 - (NSDictionary *)constantsToExport {
-    NSDictionary* metadata = [[NSUserDefaults standardUserDefaults] objectForKey:ReactNativeAutoUpdaterCurrentJSCodeMetadata];
+    NSDictionary* metadata = [[NSUserDefaults standardUserDefaults] objectForKey:ReactNativeCustomizedUpdateCurrentJSCodeMetadata];
     NSString* version = @"";
     if (metadata) {
         version = [metadata objectForKey:@"version"];
@@ -105,7 +105,7 @@ static bool isFirstAccess = YES;
     self.metadataUrl = url;
     self.defaultJSCodeLocation = defaultJSCodeLocation;
     self.defaultMetadataFileLocation = metadataFileLocation;
-    
+
     [self compareSavedMetadataAgainstContentsOfFile: self.defaultMetadataFileLocation];
 }
 
@@ -117,7 +117,7 @@ static bool isFirstAccess = YES;
     self.allowCellularDataUse = cellular;
 }
 
-- (void)downloadUpdatesForType:(ReactNativeAutoUpdaterUpdateType)type {
+- (void)downloadUpdatesForType:(ReactNativeCustomizedUpdateUpdateType)type {
     self.updateType = type;
 }
 
@@ -136,7 +136,7 @@ static bool isFirstAccess = YES;
 - (void)compareSavedMetadataAgainstContentsOfFile: (NSURL*)metadataFileLocation {
     NSData* fileMetadata = [NSData dataWithContentsOfURL: metadataFileLocation];
     if (!fileMetadata) {
-        NSLog(@"[ReactNativeAutoUpdater]: Make sure you initialize RNAU with a metadata file.");
+        NSLog(@"[ReactNativeCustomizedUpdate]: Make sure you initialize RNAU with a metadata file.");
         if (self.showProgress) {
             [StatusBarNotification showWithMessage:NSLocalizedString(@"Error reading Metadata File.", nil) backgroundColor:[StatusBarNotification errorColor] autoHide:YES];
         }
@@ -146,24 +146,24 @@ static bool isFirstAccess = YES;
     NSError *error;
     NSDictionary* localMetadata = [NSJSONSerialization JSONObjectWithData:fileMetadata options:NSJSONReadingAllowFragments error:&error];
     if (error) {
-        NSLog(@"[ReactNativeAutoUpdater]: Initialized RNAU with a WRONG metadata file.");
+        NSLog(@"[ReactNativeCustomizedUpdate]: Initialized RNAU with a WRONG metadata file.");
         if (self.showProgress) {
             [StatusBarNotification showWithMessage:NSLocalizedString(@"Error reading Metadata File.", nil) backgroundColor:[StatusBarNotification errorColor] autoHide:YES];
         }
         self.initializationOK = NO;
         return;
     }
-    NSDictionary* savedMetadata = [[NSUserDefaults standardUserDefaults] objectForKey:ReactNativeAutoUpdaterCurrentJSCodeMetadata];
+    NSDictionary* savedMetadata = [[NSUserDefaults standardUserDefaults] objectForKey:ReactNativeCustomizedUpdateCurrentJSCodeMetadata];
     if (!savedMetadata) {
-        [[NSUserDefaults standardUserDefaults] setObject:localMetadata forKey:ReactNativeAutoUpdaterCurrentJSCodeMetadata];
+        [[NSUserDefaults standardUserDefaults] setObject:localMetadata forKey:ReactNativeCustomizedUpdateCurrentJSCodeMetadata];
     }
     else {
         if ([[savedMetadata objectForKey:@"version"] compare:[localMetadata objectForKey:@"version"] options:NSNumericSearch] == NSOrderedAscending) {
             NSData* data = [NSData dataWithContentsOfURL:self.defaultJSCodeLocation];
             NSString* filename = [NSString stringWithFormat:@"%@/%@", [self createCodeDirectory], @"main.jsbundle"];
-            
+
             if ([data writeToFile:filename atomically:YES]) {
-                [[NSUserDefaults standardUserDefaults] setObject:localMetadata forKey:ReactNativeAutoUpdaterCurrentJSCodeMetadata];
+                [[NSUserDefaults standardUserDefaults] setObject:localMetadata forKey:ReactNativeCustomizedUpdateCurrentJSCodeMetadata];
             }
         }
     }
@@ -200,7 +200,7 @@ static bool isFirstAccess = YES;
     NSString* urlToDownload = [[self.updateMetadata objectForKey:@"url"] objectForKey:@"url"];
     NSString* minContainerVersion = [self.updateMetadata objectForKey:@"minContainerVersion"];
     BOOL isRelative = [[[self.updateMetadata objectForKey:@"url"] objectForKey:@"isRelative"] boolValue];
-    
+
     if ([self shouldDownloadUpdateWithVersion:versionToDownload forMinContainerVersion:minContainerVersion]) {
         if (self.showProgress) {
             [StatusBarNotification showWithMessage:NSLocalizedString(@"Downloading Update.", nil) backgroundColor:[StatusBarNotification infoColor] autoHide:YES];
@@ -221,18 +221,18 @@ static bool isFirstAccess = YES;
 
 - (BOOL)shouldDownloadUpdateWithVersion:(NSString*)version forMinContainerVersion:(NSString*)minContainerVersion {
     BOOL shouldDownload = NO;
-    
+
     /*
      * First check for the version match. If we have the update version, then don't download.
      * Also, check what kind of updates the user wants.
      */
-    NSDictionary* currentMetadata = [[NSUserDefaults standardUserDefaults] objectForKey:ReactNativeAutoUpdaterCurrentJSCodeMetadata];
+    NSDictionary* currentMetadata = [[NSUserDefaults standardUserDefaults] objectForKey:ReactNativeCustomizedUpdateCurrentJSCodeMetadata];
     if (!currentMetadata) {
         shouldDownload = YES;
     }
     else {
         NSString* currentVersion = [currentMetadata objectForKey:@"version"];
-        
+
         int currentMajor, currentMinor, currentPatch, updateMajor, updateMinor, updatePatch;
         NSArray* currentComponents = [currentVersion componentsSeparatedByString:@"."];
         if (currentComponents.count == 0) {
@@ -265,22 +265,22 @@ static bool isFirstAccess = YES;
         else {
             updatePatch = 0;
         }
-        
+
         switch (self.updateType) {
-            case ReactNativeAutoUpdaterMajorUpdate: {
+            case ReactNativeCustomizedUpdateMajorUpdate: {
                 if (currentMajor < updateMajor) {
                     shouldDownload = YES;
                 }
                 break;
             }
-            case ReactNativeAutoUpdaterMinorUpdate: {
+            case ReactNativeCustomizedUpdateMinorUpdate: {
                 if (currentMajor < updateMajor || (currentMajor == updateMajor && currentMinor < updateMinor)) {
                     shouldDownload = YES;
                 }
-                
+
                 break;
             }
-            case ReactNativeAutoUpdaterPatchUpdate: {
+            case ReactNativeCustomizedUpdatePatchUpdate: {
                 if (currentMajor < updateMajor || (currentMajor == updateMajor && currentMinor < updateMinor)
                     || (currentMajor == updateMajor && currentMinor == updateMinor && currentPatch < updatePatch)) {
                     shouldDownload = YES;
@@ -293,7 +293,7 @@ static bool isFirstAccess = YES;
             }
         }
     }
-    
+
     /*
      * Then check if the update is good for our container version.
      */
@@ -304,7 +304,7 @@ static bool isFirstAccess = YES;
     else {
         shouldDownload = NO;
     }
-    
+
     return shouldDownload;
 }
 
@@ -315,7 +315,7 @@ static bool isFirstAccess = YES;
             [self setLastUpdateCheckPerformedOnDate: [NSDate date]];
         }
         else {
-            NSLog(@"[ReactNativeAutoUpdater]: Please make sure you have set the Update Metadata URL");
+            NSLog(@"[ReactNativeCustomizedUpdate]: Please make sure you have set the Update Metadata URL");
         }
     });
 }
@@ -329,7 +329,7 @@ static bool isFirstAccess = YES;
     if (![self lastUpdateCheckPerformedOnDate]) {
         [self checkUpdate];
     }
-    
+
     // If daily condition is satisfied, perform version check
     if ([self numberOfDaysElapsedBetweenLastVersionCheckDate] > 1) {
         [self checkUpdate];
@@ -345,7 +345,7 @@ static bool isFirstAccess = YES;
     if (![self lastUpdateCheckPerformedOnDate]) {
         [self checkUpdate];
     }
-    
+
     // If weekly condition is satisfied, perform version check
     if ([self numberOfDaysElapsedBetweenLastVersionCheckDate] > 7) {
         [self checkUpdate];
@@ -357,17 +357,17 @@ static bool isFirstAccess = YES;
 
 - (void)startDownloadingUpdateFromURL:(NSString*)urlString {
     NSURL* url = [NSURL URLWithString:urlString];
-    
+
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfig.allowsCellularAccess = self.allowCellularDataUse;
     sessionConfig.timeoutIntervalForRequest = 60.0;
     sessionConfig.timeoutIntervalForResource = 60.0;
     sessionConfig.HTTPMaximumConnectionsPerHost = 1;
-    
+
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig
                                                           delegate:self
                                                      delegateQueue:nil];
-    
+
     NSURLSessionDownloadTask* task = [session downloadTaskWithURL:url];
     [task resume];
 }
@@ -382,11 +382,11 @@ static bool isFirstAccess = YES;
 }
 
 - (NSDate*)lastUpdateCheckPerformedOnDate {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:ReactNativeAutoUpdaterLastUpdateCheckDate];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:ReactNativeCustomizedUpdateLastUpdateCheckDate];
 }
 
 - (void)setLastUpdateCheckPerformedOnDate: date {
-    [[NSUserDefaults standardUserDefaults] setObject:date forKey:ReactNativeAutoUpdaterLastUpdateCheckDate];
+    [[NSUserDefaults standardUserDefaults] setObject:date forKey:ReactNativeCustomizedUpdateLastUpdateCheckDate];
 }
 
 - (NSString*)containerVersion {
@@ -401,16 +401,16 @@ static bool isFirstAccess = YES;
     NSString* libraryDirectory = [self libraryDirectory];
     NSString *filePathAndDirectory = [libraryDirectory stringByAppendingPathComponent:@"JSCode"];
     NSError *error;
-    
+
     NSFileManager* fileManager = [NSFileManager defaultManager];
-    
+
     BOOL isDir;
     if ([fileManager fileExistsAtPath:filePathAndDirectory isDirectory:&isDir]) {
         if (isDir) {
             return filePathAndDirectory;
         }
     }
-    
+
     if (![fileManager createDirectoryAtPath:filePathAndDirectory
                 withIntermediateDirectories:YES
                                  attributes:nil
@@ -450,27 +450,27 @@ static bool isFirstAccess = YES;
                                       autoHide:YES];
     }
     NSError* error;
-    
+
     NSData* data = [NSData dataWithContentsOfURL:location];
     NSString* filename = [NSString stringWithFormat:@"%@/%@", [self createCodeDirectory], @"main.jsbundle"];
-    
+
     if ([data writeToFile:filename atomically:YES]) {
-        [[NSUserDefaults standardUserDefaults] setObject:self.updateMetadata forKey:ReactNativeAutoUpdaterCurrentJSCodeMetadata];
-      if ([self.delegate respondsToSelector:@selector(ReactNativeAutoUpdater:updateDownloadedToURL:currentVersion:)]) {
+        [[NSUserDefaults standardUserDefaults] setObject:self.updateMetadata forKey:ReactNativeCustomizedUpdateCurrentJSCodeMetadata];
+      if ([self.delegate respondsToSelector:@selector(ReactNativeCustomizedUpdate:updateDownloadedToURL:currentVersion:)]) {
         NSString* currentVersion = self.updateMetadata[@"version"];
-        [self.delegate ReactNativeAutoUpdater:self updateDownloadedToURL:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@", filename]] currentVersion:currentVersion];
+        [self.delegate ReactNativeCustomizedUpdate:self updateDownloadedToURL:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@", filename]] currentVersion:currentVersion];
       }
     }
     else {
-        NSLog(@"[ReactNativeAutoUpdater]: Update save failed - %@.", error.localizedDescription);
+        NSLog(@"[ReactNativeCustomizedUpdate]: Update save failed - %@.", error.localizedDescription);
     }
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     if (error) {
-        NSLog(@"[ReactNativeAutoUpdater]: %@", error.localizedDescription);
-      if ([self.delegate respondsToSelector:@selector(ReactNativeAutoUpdater:updateDownloadFailed:)]) {
-        [self.delegate ReactNativeAutoUpdater:self updateDownloadFailed:error];
+        NSLog(@"[ReactNativeCustomizedUpdate]: %@", error.localizedDescription);
+      if ([self.delegate respondsToSelector:@selector(ReactNativeCustomizedUpdate:updateDownloadFailed:)]) {
+        [self.delegate ReactNativeCustomizedUpdate:self updateDownloadFailed:error];
       }
     }
 }

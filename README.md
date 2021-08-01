@@ -101,7 +101,7 @@ react-native link react-native-customized-update
         
         import com.facebook.react.ReactActivity;
         import com.mg.appupdate.*;
-        import com.mg.appupdate.ReactNativeAppUpdate.ReactNativeAutoUpdaterFrequency;
+        import com.mg.appupdate.ReactNativeAppUpdate.ReactNativeCustomizedUpdateFrequency;
         
         public class MainActivity extends ReactNativeAppUpdateActivity {
         
@@ -125,8 +125,8 @@ react-native link react-native-customized-update
              * default value - EACH_TIME
              * */
             @Override
-            protected ReactNativeAutoUpdaterFrequency getUpdateFrequency() {
-                return ReactNativeAutoUpdaterFrequency.EACH_TIME;
+            protected ReactNativeCustomizedUpdateFrequency getUpdateFrequency() {
+                return ReactNativeCustomizedUpdateFrequency.EACH_TIME;
             }
         
             /**
