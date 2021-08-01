@@ -46,3 +46,4 @@ android/app/libs
 android/keystores/debug.keystore
 pods
 .vscode
+/exampleAppUpdate/yarn.lock
