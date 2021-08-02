@@ -60,9 +60,12 @@ import ReactNativeCustomizedUpdate from 'react-native-customized-update';
 ## Install
 
 ```
-npm i react-native-customized-update --save
-react-native link react-native-customized-update
+yarn add react-native-customized-update
 ```
+
+###example 
+
+https://github.com/shijingsh/react-native-customized-update-example
 
 ## Install android
 - 1、import class 
